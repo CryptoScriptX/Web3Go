@@ -31,11 +31,23 @@ with open("proxies.txt", "r") as f:
     print(f"Total proxies: {len(proxies_list)}")
 
 
+def seconds_until_next_day_utc():
+    current_time_utc = datetime.datetime.utcnow()
+
+    next_day_utc = current_time_utc + datetime.timedelta(days=1)
+    next_day_utc = next_day_utc.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    time_difference = next_day_utc - current_time_utc
+    seconds_until_next_day = time_difference.total_seconds()
+
+    return seconds_until_next_day
+
+
 def checkin(private_key: str, proxy: str):
-    proxy = f'http://{proxy}'
+    http_proxy = f'http://{proxy}'
     proxies = {
-        "http": proxy,
-        "https": proxy
+        "http": http_proxy,
+        "https": http_proxy
     }
 
     headers = Headers(
@@ -89,7 +101,10 @@ def checkin(private_key: str, proxy: str):
 
         if response.status_code == 200:
             logger.success(f"{account.address} - {response.status_code}")
-            time.sleep((60 * 60 * 24) + random.randint(0, 3600 * 3))
+            seconds = random.randint(0, 3600 * 3)
+            next_day_in_seconds = seconds_until_next_day_utc() + seconds
+            logger.info(f"Sleeping for {int(next_day_in_seconds)} seconds...")
+            time.sleep(next_day_in_seconds)
         else:
             logger.error(f"{account.address} - {response.status_code}")
     except Exception as e:
