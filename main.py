@@ -28,8 +28,6 @@ with open("proxies.txt", "r") as f:
         if proxy.strip() == "":
             continue
         proxies_list.append(proxy)
-    print(f"Total proxies: {len(proxies_list)}")
-
 
 def seconds_until_next_day_utc():
     current_time_utc = datetime.datetime.utcnow()
@@ -103,13 +101,18 @@ def checkin(private_key: str, proxy: str):
             logger.success(f"{account.address} - {response.status_code}")
             seconds = random.randint(0, 3600 * 3)
             next_day_in_seconds = seconds_until_next_day_utc() + seconds
-            logger.info(f"Sleeping for {int(next_day_in_seconds)} seconds...")
+            logger.info(f"Sleeping for {int(next_day_in_seconds)} seconds... | TG: https://t.me/cryptoscriptx")
             time.sleep(next_day_in_seconds)
         else:
-            logger.error(f"{account.address} - {response.status_code}")
+            logger.error(f"{account.address} - {response.status_code} | TG: https://t.me/cryptoscriptx")
     except Exception as e:
         logger.error(f"{account.address} - {e}")
 
+print(f"Total wallets: {len(private_keys)}")
+print(f"Total proxies: {len(proxies_list)}")
+print(f'Telegram Channel: https://t.me/cryptoscriptx')
+print(f'Donate MetaMask❤️‍🔥: 0x6f2cDf7fa00F4689961d475fF4AAf5F34E7cbe00')
+print(f'Donate SOL❤️‍🔥: 6uYry4xjjKo69GX5vD9Twr9uCHDRA7378ALCNURF4mpL')
 
 for idx, private_key in enumerate(private_keys):
     proxy = proxies_list[idx % len(proxies_list)].strip()
