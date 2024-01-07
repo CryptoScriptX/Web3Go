@@ -16,11 +16,11 @@ crypto script
 
 # Run
 
-## Install requirements
+#### Install requirements
 ```sh
 pip install -r requirements.txt
 ```
-## Run Script
+#### Run Script
 ```sh
 python3 main.py
 ```
