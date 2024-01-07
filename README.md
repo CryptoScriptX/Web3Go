@@ -14,10 +14,15 @@ crypto script
 ### proxies.txt
 - format `login:password@ip:port`
 
-# Install requiements.txt
+# Run
 
+## Install requirements
 ```sh
 pip install -r requirements.txt
+```
+## Run Script
+```sh
+python3 main.py
 ```
 
 ## Features
